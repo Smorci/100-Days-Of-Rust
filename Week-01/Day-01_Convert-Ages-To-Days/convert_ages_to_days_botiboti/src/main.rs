@@ -1,5 +1,10 @@
 use std::io;
 
+fn calc(str: String) -> i32 {
+    let days: i32 = str.trim().parse().expect("Not an integer.");
+    days * 365
+}
+
 fn main() {
     println!("Enter age.");
 
@@ -11,6 +16,5 @@ fn main() {
 
     println!("You entered: {age}");
 
-    let days: i32 = age.trim().parse().expect("Not an integer.");
-    println!("That's roughly {} days.", days * 365);
+    println!("That's roughly {} days.", calc(age));
 }
