@@ -1,8 +1,7 @@
 use std::io;
 
-fn calc(str: String) -> i32 {
-    let days: i32 = str.trim().parse().expect("Not an integer.");
-    days * 365
+fn calc(age: i32) -> i32 {
+    age * 365
 }
 
 fn main() {
@@ -14,7 +13,7 @@ fn main() {
         .read_line(&mut age)
         .expect("Failed to read line.");
 
-    println!("You entered: {age}");
-
+    let age: i32 = age.trim().parse().expect("Not an integer.");
+    println!("You entered: {}.", age);
     println!("That's roughly {} days.", calc(age));
 }
