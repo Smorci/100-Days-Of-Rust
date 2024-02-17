@@ -2,7 +2,7 @@ use num_bigint::{BigUint, ToBigUint};
 use std::io;
 
 fn calc_days(age: BigUint) -> BigUint {
-    let days_in_a_year: BigUint = 365_i32.to_biguint().unwrap();
+    let days_in_a_year: BigUint = 365_i32.to_biguint().expect("Something went wrong with the conversion i32 -> BigUint.");
     age * days_in_a_year
 }
 
