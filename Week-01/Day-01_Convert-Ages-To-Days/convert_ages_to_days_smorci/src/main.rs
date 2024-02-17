@@ -1,16 +1,18 @@
 use std::io;
+use num_bigint::BigUint;
+use std::str::FromStr;
 
 const NUMBER_OF_DAYS_IN_A_YEAR: u32 = 365;
 
-fn convert_years_to_days (years: u32) -> u32 {
+fn convert_years_to_days (years: BigUint) -> BigUint {
 
     NUMBER_OF_DAYS_IN_A_YEAR * years
 
 }
 
-fn convert_string_to_u32 (string: &mut String) -> u32 {
+fn convert_string_to_bigu32 (string: &mut String) -> BigUint {
 
-    let result: u32 = string.trim().parse().expect("Error parsing the input to unsigned integer");
+    let result = BigUint::from_str(string.trim()).expect("Error parsing the input to unsigned integer");
     result
 
 }
@@ -34,9 +36,9 @@ fn main () {
     
     let _ = get_input(&mut buffer);
 
-    let years_as_u32: u32 = convert_string_to_u32(&mut buffer);
+    let years_as_bigu32: BigUint = convert_string_to_bigu32(&mut buffer);
 
-    let years_in_days = convert_years_to_days(years_as_u32);
+    let years_in_days = convert_years_to_days(years_as_bigu32);
     let buffer_trimmed = buffer.trim();
     println!("{buffer_trimmed} years is equal to {years_in_days} days!")
 
