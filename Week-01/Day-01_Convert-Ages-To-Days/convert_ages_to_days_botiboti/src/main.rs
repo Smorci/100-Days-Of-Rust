@@ -3,7 +3,7 @@ use std::io;
 
 // convert input string to BigUint
 fn read_parse(inp: String) -> BigUint {
-    let age: BigUint = inp.trim().parse().expect("Not an integer.");
+    let age: BigUint = inp.trim().parse().expect("Not a positive integer.");
     age
 }
 
@@ -11,7 +11,7 @@ fn read_parse(inp: String) -> BigUint {
 fn calc_days(age: BigUint) -> BigUint {
     let days_in_a_year: BigUint = 365_i32
         .to_biguint()
-        .expect("Something went wrong with the conversion i32 -> BigUint.");
+        .expect("Something went wrong with the conversion 365: i32 -> BigUint.");
     age * days_in_a_year
 }
 
