@@ -16,7 +16,7 @@ fn calc_days(age: BigUint) -> BigUint {
 }
 
 fn main() {
-    println!("Enter age.");
+    println!("Enter age:");
 
     let mut age = String::new();
 
