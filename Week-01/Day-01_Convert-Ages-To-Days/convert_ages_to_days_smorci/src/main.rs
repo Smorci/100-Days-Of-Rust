@@ -9,14 +9,12 @@ fn convert_years_to_days(years: BigUint) -> BigUint {
 }
 
 fn convert_string_to_biguint(string: &str) -> Result<BigUint, ParseBigIntError> {
-
     let result = BigUint::from_str(string.trim())?;
 
     Ok(result)
 }
 
 fn get_input() -> io::Result<String> {
-
     let mut buffer = String::new();
 
     let stdin = io::stdin();
@@ -27,14 +25,14 @@ fn get_input() -> io::Result<String> {
 }
 
 fn main() {
-
     println!("Welcome to age converter! This program converts ages to days.");
     println!();
     println!("Enter the number of years to convert:");
 
     let buffer: String = get_input().expect("Invalid input. Provide only a positive integer.");
 
-    let years: BigUint = convert_string_to_biguint(&buffer).expect("Error converting string to biguint");
+    let years: BigUint =
+        convert_string_to_biguint(&buffer).expect("Error converting string to biguint");
 
     let days: BigUint = convert_years_to_days(years);
 
@@ -49,12 +47,10 @@ mod tests {
 
     #[test]
     fn test_big_integer() {
-        let test_number = BigUint::from_str("20000000000000000000")
-            .unwrap();
+        let test_number = BigUint::from_str("20000000000000000000").unwrap();
         assert_eq!(
             convert_years_to_days(test_number),
-            BigUint::from_str("7300000000000000000000")
-                .unwrap()
+            BigUint::from_str("7300000000000000000000").unwrap()
         );
     }
 
