@@ -1,32 +1,34 @@
-use num_bigint::{BigUint, ToBigUint};
+use num_bigint::{BigUint, ParseBigIntError};
 use std::io;
 
+const DAYS_IN_YEAR: u64 = 365;
+
 // convert input string to BigUint
-fn read_parse(inp: String) -> BigUint {
-    let age: BigUint = inp.trim().parse().expect("Not a positive integer.");
-    age
+fn read_parse(inp: &str) -> Result<BigUint, ParseBigIntError> {
+    let age = match inp.trim().parse::<BigUint>() {
+        Ok(age) => age,
+        Err(e) => return Err(e),
+    };
+    Ok(age)
 }
 
 // turn age in years to days
-fn calc_days(age: BigUint) -> BigUint {
-    let days_in_a_year: BigUint = 365_i32
-        .to_biguint()
-        .expect("Something went wrong with the conversion 365: i32 -> BigUint.");
-    age * days_in_a_year
+fn calc_days(age: &BigUint) -> BigUint {
+    age * DAYS_IN_YEAR
 }
 
 fn main() {
     println!("Enter age:");
 
-    let mut age = String::new();
+    let mut input = String::new();
 
     io::stdin()
-        .read_line(&mut age)
+        .read_line(&mut input)
         .expect("Failed to read line.");
 
-    let age: BigUint = read_parse(age);
+    let age: BigUint = read_parse(&input).expect("Not a positive integer.");
     println!("You entered: {}.", age);
-    println!("That's roughly {} days.", calc_days(age));
+    println!("That's roughly {} days.", calc_days(&age));
 }
 
 #[cfg(test)]
@@ -35,34 +37,25 @@ mod tests {
 
     #[test]
     fn an_ordinary_human_age() {
-        let result = read_parse(String::from("50"));
-        let expectation: BigUint = 50_i32
-            .to_biguint()
-            .expect("Something went wrong with the conversion 50 : i32 -> BigUint.");
-        assert_eq!(result, expectation);
+        let result = read_parse(&String::from("50"));
+        assert_eq!(result, Ok(BigUint::from(50_u32)));
     }
 
     #[test]
     fn age_of_earth() {
-        let result = read_parse(String::from("4500000000"));
-        let expectation: BigUint = 4500000000_u64
-            .to_biguint()
-            .expect("Something went wrong with the conversion 4.5 billion: u64 -> BigUint.");
-        assert_eq!(result, expectation);
+        let result = read_parse(&String::from("4500000000"));
+        assert_eq!(result, Ok(BigUint::from(4500000000_u64)));
     }
 
     #[test]
     #[should_panic]
     fn not_a_positive_integer() {
-        read_parse(String::from("boo"));
+        read_parse(&String::from("boo")).unwrap();
     }
 
     #[test]
     fn calc_days_for_earth() {
-        let result = calc_days(read_parse(String::from("4500000000")));
-        let expectation: BigUint = 1642500000000_u64
-            .to_biguint()
-            .expect("Something went wrong with the conversion 13.5 billion: u64 -> BigUint.");
-        assert_eq!(result, expectation);
+        let result = calc_days(&read_parse(&String::from("4500000000")).unwrap());
+        assert_eq!(result, BigUint::from(1642500000000_u64));
     }
 }
