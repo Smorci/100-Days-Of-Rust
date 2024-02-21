@@ -5,11 +5,8 @@ const DAYS_IN_YEAR: u64 = 365;
 
 // convert input string to BigUint
 fn read_parse(inp: &str) -> Result<BigUint, ParseBigIntError> {
-    let age = match inp.trim().parse::<BigUint>() {
-        Ok(age) => age,
-        Err(e) => return Err(e),
-    };
-    Ok(age)
+    let age = inp.trim().parse::<BigUint>();
+    age
 }
 
 // turn age in years to days
@@ -48,7 +45,7 @@ mod tests {
     }
 
     #[test]
-    #[should_panic]
+    #[should_panic(expected = "ParseBigIntError")]
     fn not_a_positive_integer() {
         read_parse(&String::from("boo")).unwrap();
     }
@@ -57,5 +54,29 @@ mod tests {
     fn calc_days_for_earth() {
         let result = calc_days(&read_parse(&String::from("4500000000")).unwrap());
         assert_eq!(result, BigUint::from(1642500000000_u64));
+    }
+
+    #[test]
+    fn calc_zero() {
+        assert_eq!(
+            calc_days(&read_parse(&String::from("0")).unwrap()),
+            BigUint::from(0_u32)
+        );
+    }
+
+    #[test]
+    fn calc_one() {
+        assert_eq!(
+            calc_days(&read_parse(&String::from("1")).unwrap()),
+            BigUint::from(365_u32)
+        );
+    }
+
+    #[test]
+    fn calc_hundred() {
+        assert_eq!(
+            calc_days(&read_parse(&String::from("100")).unwrap()),
+            BigUint::from(36500_u32)
+        );
     }
 }
