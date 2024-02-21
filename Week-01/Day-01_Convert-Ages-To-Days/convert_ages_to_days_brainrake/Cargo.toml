@@ -1,0 +1,18 @@
+[package]
+name = "convert_ages_to_days_brainrake"
+version = "0.1.0"
+edition = "2021"
+default-run = "convert_ages_to_days_brainrake"
+
+[lib]
+
+[[bin]]
+name = "web"
+
+[[bin]]
+name = "convert_ages_to_days_brainrake"
+
+[dependencies]
+num = "0.4"
+web-sys = "0.3"
+yew = { version = "0.21", features = ["csr"] }
