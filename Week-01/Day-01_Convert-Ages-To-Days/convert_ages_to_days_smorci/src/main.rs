@@ -9,18 +9,13 @@ fn convert_years_to_days(years: BigUint) -> BigUint {
 }
 
 fn convert_string_to_biguint(string: &str) -> Result<BigUint, ParseBigIntError> {
-    let result = BigUint::from_str(string.trim())?;
-
-    Ok(result)
+    BigUint::from_str(string.trim())
 }
 
 fn get_input() -> io::Result<String> {
     let mut buffer = String::new();
-
     let stdin = io::stdin();
-
     stdin.read_line(&mut buffer)?;
-
     Ok(buffer)
 }
 
@@ -29,15 +24,12 @@ fn main() {
     println!();
     println!("Enter the number of years to convert:");
 
-    let buffer: String = get_input().expect("Invalid input. Provide only a positive integer.");
+    let buffer: String = get_input().expect("Unable to read input.");
+    let years: BigUint = convert_string_to_biguint(&buffer)
+        .expect("Could not parse year. Please enter a positive integer.");
+    let days: BigUint = convert_years_to_days(years.clone());
 
-    let years: BigUint =
-        convert_string_to_biguint(&buffer).expect("Error converting string to biguint");
-
-    let days: BigUint = convert_years_to_days(years);
-
-    let buffer_trimmed: &str = buffer.trim();
-    println!("{buffer_trimmed} years is equal to {days} days!")
+    println!("{years} years is equal to {days} days!")
 }
 
 #[cfg(test)]
@@ -64,7 +56,7 @@ mod tests {
     }
 
     #[test]
-    #[should_panic]
+    #[should_panic(expected = "ParseBigIntError")]
     fn test_conversion_parse_int_error() {
         let input = String::from("abc");
         convert_string_to_biguint(&input).unwrap();
