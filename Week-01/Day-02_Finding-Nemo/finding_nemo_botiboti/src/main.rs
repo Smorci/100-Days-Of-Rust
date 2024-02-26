@@ -10,5 +10,5 @@ fn main() {
         .read_line(&mut input)
         .expect("Failed to read line.");
 
-    findNemo(&input);
+    println!("{}", findNemo(&input));
 }
