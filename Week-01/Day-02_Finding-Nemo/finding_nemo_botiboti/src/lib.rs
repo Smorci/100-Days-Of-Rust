@@ -2,7 +2,7 @@
 
 pub fn findNemo(inp: &str) -> String {
     match inp.split_whitespace().position(|x| x == "Nemo") {
-        Some(index) => (index + 1).to_string(),
+        Some(index) => "I found Nemo at ".to_string() + &(index + 1).to_string() + "!",
         None => "I can't find Nemo :(".to_string(),
     }
 }
