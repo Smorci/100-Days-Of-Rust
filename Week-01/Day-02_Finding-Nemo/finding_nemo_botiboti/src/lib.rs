@@ -1,10 +1,9 @@
-#[allow(non_snake_case)]
-
-pub fn findNemo(inp: &str) -> String {
-    match inp.split_whitespace().position(|x| x == "Nemo") {
-        Some(index) => "I found Nemo at ".to_string() + &(index + 1).to_string() + "!",
-        None => "I can't find Nemo :(".to_string(),
-    }
+pub fn find_nemo(inp: &str) -> String {
+    inp.split_whitespace()
+        .position(|x| x == "Nemo")
+        .map_or("I can't find Nemo :(".to_string(), |i| {
+            "I found Nemo at ".to_string() + &(i + 1).to_string() + "!"
+        })
 }
 
 #[cfg(test)]
@@ -14,25 +13,49 @@ mod tests {
     #[test]
     fn no_nemo() {
         assert_eq!(
-            findNemo("We lost Nemo!"),
+            find_nemo("We lost Nemo!"),
             String::from("I can't find Nemo :(")
         );
     }
 
     #[test]
-    fn nemo_first() {
-        assert_eq!(findNemo("Nemo is gone."), String::from("1"));
+    fn just_nemo() {
+        assert_eq!(find_nemo("Nemo"), String::from("I found Nemo at 1!"));
+    }
+
+    #[test]
+    fn nemo_middle() {
+        assert_eq!(
+            find_nemo("In the Nemo is the middle."),
+            String::from("I found Nemo at 3!")
+        );
+    }
+
+    #[test]
+    fn nemo_last() {
+        assert_eq!(
+            find_nemo("The last one is Nemo ."),
+            String::from("I found Nemo at 5!")
+        );
+    }
+
+    #[test]
+    fn nemo_s() {
+        assert_eq!(find_nemo("Nemo's"), String::from("I can't find Nemo :("));
     }
 
     #[test]
     fn multiple_nemos() {
-        assert_eq!(findNemo("Nemo Nemo Nemo"), String::from("1"));
+        assert_eq!(
+            find_nemo("Nemo Nemo Nemo"),
+            String::from("I found Nemo at 1!")
+        );
     }
 
     #[test]
-    fn find_nemo() {
+    fn small_nemo() {
         assert_eq!(
-            findNemo("Where is nemo ?"),
+            find_nemo("Where is nemo ?"),
             String::from("I can't find Nemo :(")
         );
     }

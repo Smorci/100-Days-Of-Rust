@@ -1,4 +1,4 @@
-use finding_nemo_botiboti::findNemo;
+use finding_nemo_botiboti::find_nemo;
 use std::io;
 
 fn main() {
@@ -10,5 +10,5 @@ fn main() {
         .read_line(&mut input)
         .expect("Failed to read line.");
 
-    println!("{}", findNemo(&input));
+    println!("{}", find_nemo(&input));
 }
