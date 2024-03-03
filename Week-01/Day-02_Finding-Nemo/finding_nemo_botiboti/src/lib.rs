@@ -1,9 +1,15 @@
+pub fn get_index(inp: &str) -> Option<usize> {
+    inp.split_whitespace().position(|x| x == "Nemo")
+}
+
+pub fn index_to_string(index: Option<usize>) -> String {
+    index.map_or("I can't find Nemo :(".to_string(), |i| {
+        "I found Nemo at ".to_string() + &(i + 1).to_string() + "!"
+    })
+}
+
 pub fn find_nemo(inp: &str) -> String {
-    inp.split_whitespace()
-        .position(|x| x == "Nemo")
-        .map_or("I can't find Nemo :(".to_string(), |i| {
-            "I found Nemo at ".to_string() + &(i + 1).to_string() + "!"
-        })
+    index_to_string(get_index(inp))
 }
 
 #[cfg(test)]
