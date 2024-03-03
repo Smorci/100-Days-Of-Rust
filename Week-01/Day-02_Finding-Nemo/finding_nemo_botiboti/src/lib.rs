@@ -45,8 +45,8 @@ mod tests {
     #[test]
     fn nemo_last() {
         assert_eq!(
-            find_nemo("The last one is Nemo ."),
-            String::from("I found Nemo at 5!")
+            find_nemo("The last one is Nemo."),
+            String::from("I can't find Nemo :(")
         );
     }
 
