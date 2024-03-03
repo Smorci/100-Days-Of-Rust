@@ -7,7 +7,24 @@ use num_bigint::BigUint;
 pub const NUMBER_OF_DAYS_IN_A_YEAR: u32 = 365;
 
 /// Takes a year as an argument and returns the equivalent in days
-/// convert_years_to_days(1) -> 365
+/// ```
+/// use num_bigint::BigUint;
+/// use std::str::FromStr;
+/// use convert_ages_to_days_smorci::convert_years_to_days;
+/// assert_eq!(
+///     convert_years_to_days(&BigUint::from(10_u32)),
+///     BigUint::from_str("3650").unwrap()
+/// );
+/// assert_eq!(
+///     convert_years_to_days(&BigUint::from(1_u32)),
+///     BigUint::from_str("365").unwrap()
+/// );
+/// assert_eq!(
+///     convert_years_to_days(&BigUint::from(40_u32)),
+///     BigUint::from_str("14600").unwrap()
+/// );
+///
+/// ```
 pub fn convert_years_to_days(years: &BigUint) -> BigUint {
     NUMBER_OF_DAYS_IN_A_YEAR * years
 }
@@ -29,20 +46,4 @@ mod tests {
         );
     }
 
-    // Tests arbitrary numbers
-    #[test]
-    fn test_integer() {
-        assert_eq!(
-            convert_years_to_days(&BigUint::from(10_u32)),
-            BigUint::from_str("3650").unwrap()
-        );
-        assert_eq!(
-            convert_years_to_days(&BigUint::from(1_u32)),
-            BigUint::from_str("365").unwrap()
-        );
-        assert_eq!(
-            convert_years_to_days(&BigUint::from(40_u32)),
-            BigUint::from_str("14600").unwrap()
-        );
-    }
 }
