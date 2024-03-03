@@ -1,6 +1,6 @@
 //! Week-01/Day-02 solution.
 
-/// Returns the index of the word "Nemo" in the input string or None if "Nemo" is not found.
+/// Returns the index of the word "Nemo" in the words of the input string, or `None` if "Nemo" is not found.
 pub fn get_index(inp: &str) -> Option<usize> {
     inp.split_whitespace().position(|x| x == "Nemo")
 }
