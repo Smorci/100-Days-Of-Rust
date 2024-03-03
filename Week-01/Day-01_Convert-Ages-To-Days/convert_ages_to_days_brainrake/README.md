@@ -17,7 +17,7 @@ cargo test
 #### Run command-line app
 
 ```
-cargo run
+cargo run --example cli
 ```
 
 #### Build Documentation
@@ -26,12 +26,15 @@ cargo run
 cargo doc
 ```
 
+Open `target/doc/convert_ages_to_days_brainrake/index.html`.
+
 #### Develop Web
 
 ```
+nix develop
 nix shell nixpkgs#rustup
 rustup default
 rustup target add wasm32-unknown-unknown
 cargo install --locked trunk
-~/.cargo/bin/trunk serve
+~/.cargo/bin/trunk serve examples/web/index.html --open
 ```
